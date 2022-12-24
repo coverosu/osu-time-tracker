@@ -19,7 +19,7 @@ def seconds_to_time_stamp_string(seconds: int) -> str:
     hours, seconds = divmod(seconds, 3600)
     minutes, seconds = divmod(seconds, 60)
 
-    return "{:02d}:{:02d}:{:02d}".format(hours, minutes, seconds)
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def is_valid_status_code(status_code: int) -> bool:
