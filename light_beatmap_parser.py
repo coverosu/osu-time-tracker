@@ -15,6 +15,7 @@ from beatmap_models import EditorModel
 from beatmap_models import GeneralModel
 from beatmap_models import MetaDataModel
 
+
 class LabelParsingType(IntEnum):
     KEY_VALUE = 1
     SPLIT_BY_COMMA = 2
@@ -73,24 +74,14 @@ class LightBeatmapParser:
 
         key_snake_case = camel_to_snake(key)
 
-        if label == "[Metadata]":
-            if key == "Tags":
-                data_as_dictionary[key_snake_case] = value.split(" ")
-            else:
-                data_as_dictionary[key_snake_case] = value
-        elif label == "[General]":
-            if key == "Mode":
-                data_as_dictionary[key_snake_case] = int(value)
-            else:
-                data_as_dictionary[key_snake_case] = value
-        elif label == "[Editor]":
-            if key == "Bookmarks":
-                data_as_dictionary[key_snake_case] = value.split(",")
-            else:
-                data_as_dictionary[key_snake_case] = value
+        if label == "[Metadata]" and key == "Tags":
+            data_as_dictionary[key_snake_case] = value.split(" ")
+        elif label == "[General]" and key == "Mode":
+            data_as_dictionary[key_snake_case] = int(value)
+        elif label == "[Editor]" and key == "Bookmarks":
+            data_as_dictionary[key_snake_case] = value.split(",")
         elif label == "[Colours]":
-            value = value.replace(",", ", ")
-            data_as_dictionary[key_snake_case] = f"rgb({value})"
+            data_as_dictionary[key_snake_case] = f"rgb({value.replace(',', ', ')})"
         else:
             data_as_dictionary[key_snake_case] = value
 
