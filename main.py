@@ -97,7 +97,10 @@ def get_beatmap_content_from_id(
 
 def main() -> int:
     current_time_passed: int = 0
-    last_recent_score: Optional[osu_types.RecentScore] = None
+    last_recent_score: Optional[osu_types.RecentScore] = get_recent_play_from_user_name(
+            config.osu_user_name,
+            config.osu_mode,
+        )
 
     print("Timer has started!")
 
